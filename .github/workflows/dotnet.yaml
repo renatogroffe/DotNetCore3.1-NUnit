@@ -15,9 +15,7 @@ jobs:
       with:
         dotnet-version: 3.1.301
     - name: Restore dependencies
-      run: |
-          cd dotnet    
-          dotnet restore 
+      run: dotnet restore dotnet/Temperatura.Testes
     - name: Build
       run: dotnet build --no-restore
     - name: Test
