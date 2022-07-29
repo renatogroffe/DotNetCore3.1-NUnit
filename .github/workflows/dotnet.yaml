@@ -32,7 +32,7 @@ jobs:
       with:
         label: Unit Test Coverage
         color: brightgreen
-        path: dotnet/Temperatura.Tests/TestResults/coverage.opencover.xml
+        path: dotnet/Temperatura.Testes/TestResults/coverage.opencover.xml
         gist-filename: code-coverage.json
         gist-id: 6fba94027676331adec08030de830676
         gist-auth-token: ${{ secrets.GIST_AUTH_TOKEN }}       
