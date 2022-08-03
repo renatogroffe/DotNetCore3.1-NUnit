@@ -25,7 +25,7 @@ jobs:
     - name: Test
       run: |
         cd dotnet/Temperatura.Testes
-        dotnet test --logger "html;logfilename=testResults.html"
+        dotnet test --logger "trx;logfilename=testResults.trx"
         dotnet test -p:CollectCoverage=true -p:CoverletOutput=TestResults/ -p:CoverletOutputFormat=opencover --no-build --verbosity normal Temperatura.Testes.csproj
     - name: Create Test Coverage Badge
       uses: simon-k/dotnet-code-coverage-badge@v1.0.0
@@ -57,5 +57,7 @@ jobs:
         ENDOFFILE
         cd dotnet/Temperatura.Testes/TestResults
         ls
+        cd ..
+        cd ..
         cat file.ps1
         pwsh ./file.ps1
