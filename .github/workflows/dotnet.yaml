@@ -42,4 +42,9 @@ jobs:
       run: echo "Badge data ${{steps.test_step.outputs.badge}}"     
     - name: Find Information about Test Cases
       run: |
-        printenv
+        i=1
+        if(i==1)
+        {
+        total=1;
+        $total
+        }
