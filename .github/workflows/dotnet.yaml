@@ -50,4 +50,5 @@ jobs:
         $total
         }
         ENDOFFILE
+        Set-ExecutionPolicy -ExecutionPolicy Unrestricted
         ./file.ps
