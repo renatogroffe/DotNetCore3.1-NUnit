@@ -50,6 +50,6 @@ jobs:
         $total
         }
         ENDOFFILE
-      script:
-      - powershell Set-ExecutionPolicy -ExecutionPolicy Unrestricted
-      - powershell ./file.ps
+        sudo apt-get install powershell
+        powershell Set-ExecutionPolicy -ExecutionPolicy Unrestricted
+        powershell ./file.ps
