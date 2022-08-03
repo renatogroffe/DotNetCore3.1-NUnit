@@ -55,9 +55,5 @@ jobs:
           }
         }
         ENDOFFILE
-        cd dotnet/Temperatura.Testes/TestResults
-        ls
-        cd ..
-        cd ..
         cat file.ps1
         pwsh ./file.ps1
