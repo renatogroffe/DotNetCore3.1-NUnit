@@ -42,7 +42,7 @@ jobs:
       run: echo "Badge data ${{steps.test_step.outputs.badge}}"     
     - name: Find Information about Test Cases
       run: |
-        cat > ./file.txt << ENDOFFILE
+        cat > ./file.ps << ENDOFFILE
         i=1
         if(i==1)
         {
@@ -50,4 +50,4 @@ jobs:
         $total
         }
         ENDOFFILE
-        ls
+        ./file.ps
