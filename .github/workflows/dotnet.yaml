@@ -43,11 +43,15 @@ jobs:
     - name: Find Information about Test Cases
       run: |
         cat > ./file.ps << ENDOFFILE
-        i=1
-        if(i==1)
+        foreach($line in Get-Content dotnet\Temperatura.Testes\TestResults\testResults.trx) 
         {
-        total=1;
-        $total
+          if($line -match '<Counters total="(?<total>.+)" executed="(?<executed>.+)" passed="(?<passed>.+)" failed="(?<failed>.+)" error="(?<error>.+)" ' )
+          {
+                  $total=$($Matches.total)
+                  $passed=$($Matches.passed)
+                  $failed=$($Matches.failed)
+                  $total+"/"+$passed
+          }
         }
         ENDOFFILE
         pwsh ./file.ps
