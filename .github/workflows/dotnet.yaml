@@ -43,7 +43,7 @@ jobs:
     - name: Find Information about Test Cases
       run: |
         cat >> ./file.ps1 << ENDOFFILE
-        foreach(\$line in Get-Content dotnet\Temperatura.Testes\TestResults\testResults.trx) 
+        foreach(\$line in Get-Content dotnet\Temperatura.Testes\testResults.trx) 
         {
           if(\$line -match '<Counters total="(?<total>.+)" executed="(?<executed>.+)" passed="(?<passed>.+)" failed="(?<failed>.+)" error="(?<error>.+)" ' )
           {
@@ -54,5 +54,6 @@ jobs:
           }
         }
         ENDOFFILE
+        ls
         cat file.ps1
         pwsh ./file.ps1
