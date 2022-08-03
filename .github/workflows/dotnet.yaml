@@ -42,7 +42,7 @@ jobs:
       run: echo "Badge data ${{steps.test_step.outputs.badge}}"     
     - name: Find Information about Test Cases
       run: |
-        cat >> ./file.ps1
+        cat >> ./file.ps1 << ENDOFFILE
         foreach(\$line in Get-Content dotnet\Temperatura.Testes\TestResults\testResults.trx) 
         {
           if(\$line -match '<Counters total="(?<total>.+)" executed="(?<executed>.+)" passed="(?<passed>.+)" failed="(?<failed>.+)" error="(?<error>.+)" ' )
@@ -53,6 +53,6 @@ jobs:
                   \$total+"/"+\$passed
           }
         }
-    - name: Try
-      run: |
+        ENDOFFILE
         cat file.ps1
+        pwsh ./file.ps1
