@@ -42,4 +42,4 @@ jobs:
       run: echo "Badge data ${{steps.test_step.outputs.badge}}"     
     - name: Find Information about Test Cases
       run: |
-        echo $ENV 
+        printenv
