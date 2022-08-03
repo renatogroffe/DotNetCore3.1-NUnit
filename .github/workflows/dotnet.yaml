@@ -50,6 +50,4 @@ jobs:
         $total
         }
         ENDOFFILE
-        sudo apt-get install powershell
-        pwsh Set-ExecutionPolicy -ExecutionPolicy Unrestricted
         pwsh ./file.ps
