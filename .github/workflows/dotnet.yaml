@@ -50,5 +50,6 @@ jobs:
         $total
         }
         ENDOFFILE
-        powershell Set-ExecutionPolicy -ExecutionPolicy Unrestricted
-        powershell ./file.ps
+      script:
+      - powershell Set-ExecutionPolicy -ExecutionPolicy Unrestricted
+      - powershell ./file.ps
