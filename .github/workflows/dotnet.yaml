@@ -60,4 +60,4 @@ jobs:
         ENDOFFILE
         cat file.ps1
         pwsh ./file.ps1
-        printenv
+        dir env:
