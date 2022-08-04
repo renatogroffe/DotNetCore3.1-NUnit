@@ -51,9 +51,9 @@ jobs:
                   \$total=\$(\$Matches.total)
                   \$passed=\$(\$Matches.passed)
                   \$failed=\$(\$Matches.failed)
-                  export current_total = $total
-                  export current_passed = $total
-                  export current_failed = $total
+                  \$env:current_total = \$total
+                  \$env:current_passed = \$total
+                  \$env:current_failed = \$total
           }
         }
         ENDOFFILE
