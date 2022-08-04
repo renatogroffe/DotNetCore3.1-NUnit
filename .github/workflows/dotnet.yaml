@@ -51,13 +51,14 @@ jobs:
                   \$total=\$(\$Matches.total)
                   \$passed=\$(\$Matches.passed)
                   \$failed=\$(\$Matches.failed)
-                  [System.Environment]::SetEnvironmentVariable(\$env:current_total,\$total)
+                  [Environment]::SetEnvironmentVariable(\$env:current_total,\$total,"User")
                   \$env:current_passed = \$total
                   \$env:current_failed = \$total
                   dir env:
           }
         }
         ENDOFFILE
+        sudo apt install direnv
         cat file.ps1
         pwsh ./file.ps1
         printenv
