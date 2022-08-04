@@ -54,6 +54,7 @@ jobs:
                   [System.Environment]::SetEnvironmentVariable(\$env:current_total,\$total)
                   \$env:current_passed = \$total
                   \$env:current_failed = \$total
+                  dir env:
           }
         }
         ENDOFFILE
