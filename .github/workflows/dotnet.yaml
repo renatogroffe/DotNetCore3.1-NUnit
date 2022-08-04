@@ -51,9 +51,12 @@ jobs:
                   \$total=\$(\$Matches.total)
                   \$passed=\$(\$Matches.passed)
                   \$failed=\$(\$Matches.failed)
-                  \$total+"/"+\$passed
+                  export current_total = $total
+                  export current_passed = $total
+                  export current_failed = $total
           }
         }
         ENDOFFILE
         cat file.ps1
         pwsh ./file.ps1
+        printenv
