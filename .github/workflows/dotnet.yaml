@@ -51,7 +51,7 @@ jobs:
                   \$total=\$(\$Matches.total)
                   \$passed=\$(\$Matches.passed)
                   \$failed=\$(\$Matches.failed)
-                  [Environment]::SetEnvironmentVariable(current_total,\$total,"User")
+                  [Environment]::SetEnvironmentVariable(current_total,\$total)
                   \$env:current_passed = \$total
                   \$env:current_failed = \$total
                   dir env:
