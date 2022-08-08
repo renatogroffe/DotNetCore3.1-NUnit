@@ -46,7 +46,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GIST_AUTH_TOKEN }}
 
     - name: show content
-      run: echo "Hello ${{ steps.example-gist.outputs.content }}"
+      run: echo "Hello ${{ steps.example-gist.outputs }}"
 
     - name: Print code coverage
       run: echo "Code coverage percentage ${{steps.create_coverage_badge.outputs.percentage}}%"
