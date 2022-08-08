@@ -1,4 +1,4 @@
-name: app-rapidx-iam
+name: dotnet-yaml
 on:
   push:
     branches:
@@ -29,28 +29,28 @@ jobs:
       - name: Check Out Repo
         uses: actions/checkout@v2
       - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 3.1.301
-    - name: Restore dependencies
-      run: |
-        cd dotnet/Temperatura.Testes
-        dotnet restore 
-    - name: Build
-      run: |
-        cd dotnet/Temperatura.Testes
-        dotnet build --no-restore
-    - name: Test
-      run: |
-        cat >> ./Application1_code-coverage_current-${{ needs.set-ci-environment.outputs.environment }}.json << ENDOFFILE
-        {"schemaVersion":1,"label":"Code Coverage","message":"92%","color":"brightgreen"}
-        ENDOFFILE
-    - name: Deploy
-      uses: exuanbo/actions-deploy-gist@v1
-      with:
-        token: ${{ secrets.GIST_AUTH_TOKEN }}
-        gist_id: 59e7f69414b444b5d49d612d3861ed8c
-        file_path: dotnet/Temperatura.Testes/Application1_code-coverage_current-${{ needs.set-ci-environment.outputs.environment }}.json
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.301
+      - name: Restore dependencies
+        run: |
+          cd dotnet/Temperatura.Testes
+          dotnet restore 
+      - name: Build
+        run: |
+          cd dotnet/Temperatura.Testes
+          dotnet build --no-restore
+      - name: Test
+        run: |
+          cat >> ./Application1_code-coverage_current-${{ needs.set-ci-environment.outputs.environment }}.json << ENDOFFILE
+          {"schemaVersion":1,"label":"Code Coverage","message":"92%","color":"brightgreen"}
+          ENDOFFILE
+      - name: Deploy
+        uses: exuanbo/actions-deploy-gist@v1
+        with:
+          token: ${{ secrets.GIST_AUTH_TOKEN }}
+          gist_id: 59e7f69414b444b5d49d612d3861ed8c
+          file_path: dotnet/Temperatura.Testes/Application1_code-coverage_current-${{ needs.set-ci-environment.outputs.environment }}.json
   
     
 
