@@ -38,14 +38,14 @@ jobs:
         gist-id: 6fba94027676331adec08030de830676
         gist-auth-token: ${{ secrets.GIST_AUTH_TOKEN }} 
 
-  - uses: sergeysova/gist-read-action@v1
-    id: example-gist
-    with:
-      gist_id: 59e7f69414b444b5d49d612d3861ed8c
-      file_name: example.txt
+    - uses: sergeysova/gist-read-action@v1
+      id: example-gist
+      with:
+        gist_id: 59e7f69414b444b5d49d612d3861ed8c
+        file_name: example.txt
 
-  - name: show content
-    run: echo "Hello ${{ steps.example-gist.outputs.content }}"
+    - name: show content
+      run: echo "Hello ${{ steps.example-gist.outputs.content }}"
 
     - name: Print code coverage
       run: echo "Code coverage percentage ${{steps.create_coverage_badge.outputs.percentage}}%"
