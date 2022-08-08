@@ -37,7 +37,7 @@ jobs:
 
     - name: Get-Code-Coverage
       run: |
-        curl "https://api.github.com/gists/10d9c2b9dcba5fd1ca9d4f8a0574c6b2" | jq.files 
+        curl "https://api.github.com/gists/10d9c2b9dcba5fd1ca9d4f8a0574c6b2" | jq '.files' 
 
 
     # https://api.github.com/gists/c9c1cfbbae7a084bdb99861f0713de66
