@@ -42,7 +42,7 @@ jobs:
       id: get
       uses: andymckay/get-gist-action@master
       with:
-        gistURL: "https://gist.github.com/rishilionel/6fba94027676331adec08030de830676" 
+        gistURL: "https://gist.githubusercontent.com/rishilionel/6fba94027676331adec08030de830676/raw/14ba654bff00cdba75aa11c947d4a8b85828c559/Application1_code-coverage_previous.json" 
     - name: Show Gist contents
       id: run
       run: |
