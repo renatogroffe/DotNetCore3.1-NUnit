@@ -2,9 +2,7 @@ name: app-rapidx-iam
 on:
   push:
     branches:
-      - development
       - master
-      - "release**"
     paths:
       - "dotnet/**"
 jobs:
