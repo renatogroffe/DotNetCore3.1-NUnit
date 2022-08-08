@@ -27,9 +27,7 @@ jobs:
         cd dotnet/Temperatura.Testes
         dotnet test --logger "trx;logfilename=testResults.trx"
         dotnet test -p:CollectCoverage=true -p:CoverletOutput=TestResults/ -p:CoverletOutputFormat=opencover --no-build --verbosity normal Temperatura.Testes.csproj
-        cat >> ./file.txt << ENDOFFILE
-        Hi Hello
-        ENDOFFILE
+    
     - name: Deploy
       uses: exuanbo/actions-deploy-gist@v1
       with:
@@ -37,49 +35,56 @@ jobs:
         gist_id: c9c1cfbbae7a084bdb99861f0713de66
         file_path: dotnet/Temperatura.Testes/TestResults/testResults.trx
 
-    - name: Create Test Coverage Badge
-      uses: simon-k/dotnet-code-coverage-badge@v1.0.0
-      id: create_coverage_badge
-      with:
-        label: Unit Test Coverage
-        color: brightgreen
-        path: dotnet/Temperatura.Testes/TestResults/coverage.opencover.xml
-        gist-filename: code-coverage.json
-        gist-id: 6fba94027676331adec08030de830676
-        gist-auth-token: ${{ secrets.GIST_AUTH_TOKEN }} 
-
-    - uses: sergeysova/gist-read-action@v1
-      id: example-gist
-      with:
-        gist_id: 59e7f69414b444b5d49d612d3861ed8c
-        file_name: App1-dev.json
-        GITHUB_TOKEN: 59e7f69414b444b5d49d612d3861ed8c
-
-    - name: show content
-      run: echo "Hello ${{ steps.example-gist.outputs }}"
-
-    - name: Print code coverage
-      run: echo "Code coverage percentage ${{steps.create_coverage_badge.outputs.percentage}}%"
-    - name: Print badge data
-      run: echo "Badge data ${{steps.test_step.outputs.badge}}"     
-    - name: Find Information about Test Cases
+    - name: Get-Code-Coverage
       run: |
-        cat >> ./file.ps1 << ENDOFFILE
-        foreach(\$line in Get-Content dotnet\Temperatura.Testes\TestResults\testResults.trx) 
-        {
-          if(\$line -match '<Counters total="(?<total>.+)" executed="(?<executed>.+)" passed="(?<passed>.+)" failed="(?<failed>.+)" error="(?<error>.+)" ' )
-          {
-                  \$total=\$(\$Matches.total)
-                  \$passed=\$(\$Matches.passed)
-                  \$failed=\$(\$Matches.failed)
-                  [Environment]::SetEnvironmentVariable('current_total',\$total,"Machine")
-                  \$env:current_passed = \$total
-                  \$env:current_failed = \$total
-                  dir env:
-          }
-        }
-        ENDOFFILE
-        cat file.ps1
-        pwsh ./file.ps1
-        export test=test
-        printenv
+        curl "https://api.github.com/gists/10d9c2b9dcba5fd1ca9d4f8a0574c6b2" | jq '["files"]["Application1_code-coverage_diff.json"]["content"]' 
+
+
+    # https://api.github.com/gists/c9c1cfbbae7a084bdb99861f0713de66
+
+    # - name: Create Test Coverage Badge
+    #   uses: simon-k/dotnet-code-coverage-badge@v1.0.0
+    #   id: create_coverage_badge
+    #   with:
+    #     label: Unit Test Coverage
+    #     color: brightgreen
+    #     path: dotnet/Temperatura.Testes/TestResults/coverage.opencover.xml
+    #     gist-filename: code-coverage.json
+    #     gist-id: 6fba94027676331adec08030de830676
+    #     gist-auth-token: ${{ secrets.GIST_AUTH_TOKEN }} 
+
+    # - uses: sergeysova/gist-read-action@v1
+    #   id: example-gist
+    #   with:
+    #     gist_id: 59e7f69414b444b5d49d612d3861ed8c
+    #     file_name: App1-dev.json
+    #     GITHUB_TOKEN: 59e7f69414b444b5d49d612d3861ed8c
+
+    # - name: show content
+    #   run: echo "Hello ${{ steps.example-gist.outputs }}"
+
+    # - name: Print code coverage
+    #   run: echo "Code coverage percentage ${{steps.create_coverage_badge.outputs.percentage}}%"
+    # - name: Print badge data
+    #   run: echo "Badge data ${{steps.test_step.outputs.badge}}"     
+    # - name: Find Information about Test Cases
+    #   run: |
+    #     cat >> ./file.ps1 << ENDOFFILE
+    #     foreach(\$line in Get-Content dotnet\Temperatura.Testes\TestResults\testResults.trx) 
+    #     {
+    #       if(\$line -match '<Counters total="(?<total>.+)" executed="(?<executed>.+)" passed="(?<passed>.+)" failed="(?<failed>.+)" error="(?<error>.+)" ' )
+    #       {
+    #               \$total=\$(\$Matches.total)
+    #               \$passed=\$(\$Matches.passed)
+    #               \$failed=\$(\$Matches.failed)
+    #               [Environment]::SetEnvironmentVariable('current_total',\$total,"Machine")
+    #               \$env:current_passed = \$total
+    #               \$env:current_failed = \$total
+    #               dir env:
+    #       }
+    #     }
+    #     ENDOFFILE
+    #     cat file.ps1
+    #     pwsh ./file.ps1
+    #     export test=test
+    #     printenv
