@@ -42,6 +42,7 @@ jobs:
       id: example-gist
       with:
         gist_id: 59e7f69414b444b5d49d612d3861ed8c
+        gist-auth-token: ${{ secrets.GIST_AUTH_TOKEN }}
         file_name: example.txt
 
     - name: show content
