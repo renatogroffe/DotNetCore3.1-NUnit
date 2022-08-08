@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - master
-      - dev
     paths:
       - "**/dotnet/**"
 jobs:
@@ -25,26 +24,22 @@ jobs:
         dotnet build --no-restore
     - name: Test
       run: |
-        cat >> ./Application1_code-coverage_current.json << ENDOFFILE
-        {"schemaVersion":1,"label":"Code Coverage","message":"90%","color":"brightgreen"}
+        cat >> ./test.json << ENDOFFILE
+        {"schemaVersion":1,"label":"Code Coverage","message":"92%","color":"brightgreen"}
         ENDOFFILE
-    # cd dotnet/Temperatura.Testes
-    # dotnet test --logger "trx;logfilename=testResults.trx"
-    # dotnet test -p:CollectCoverage=true -p:CoverletOutput=TestResults/ -p:CoverletOutputFormat=opencover --no-build --verbosity normal Temperatura.Testes.csproj
+        cd dotnet/Temperatura.Testes
+        dotnet test --logger "trx;logfilename=testResults.trx"
+        dotnet test -p:CollectCoverage=true -p:CoverletOutput=TestResults/ -p:CoverletOutputFormat=opencover --no-build --verbosity normal Temperatura.Testes.csproj
     
-    # - name: Deploy
-    #   uses: exuanbo/actions-deploy-gist@v1
-    #   with:
-    #     token: ${{ secrets.GIST_AUTH_TOKEN }}
-    #     gist_id: 59e7f69414b444b5d49d612d3861ed8c
-    #     file_path: dotnet/Temperatura.Testes/Application1_code-coverage_current.json
-
-    # - name: Get-Code-Coverage
-    #   run: |
-    #     curl "https://api.github.com/gists/10d9c2b9dcba5fd1ca9d4f8a0574c6b2" | jq '.files["Application1_code-coverage_diff.json"] 
+    - name: Deploy
+      uses: exuanbo/actions-deploy-gist@v1
+      with:
+        token: ${{ secrets.GIST_AUTH_TOKEN }}
+        gist_id: 59e7f69414b444b5d49d612d3861ed8c
+        file_path: dotnet/Temperatura.Testes/test.json
 
 
-    # https://api.github.com/gists/c9c1cfbbae7a084bdb99861f0713de66
+        # https://api.github.com/gists/c9c1cfbbae7a084bdb99861f0713de66
 
     # - name: Create Test Coverage Badge
     #   uses: simon-k/dotnet-code-coverage-badge@v1.0.0
@@ -73,7 +68,7 @@ jobs:
     #   run: echo "Badge data ${{steps.test_step.outputs.badge}}"     
     # - name: Find Information about Test Cases
     #   run: |
-    #     cat >> ./file.txt << ENDOFFILE
+    #     cat >> ./file.ps1 << ENDOFFILE
     #     foreach(\$line in Get-Content dotnet\Temperatura.Testes\TestResults\testResults.trx) 
     #     {
     #       if(\$line -match '<Counters total="(?<total>.+)" executed="(?<executed>.+)" passed="(?<passed>.+)" failed="(?<failed>.+)" error="(?<error>.+)" ' )
