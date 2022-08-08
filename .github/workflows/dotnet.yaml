@@ -22,7 +22,7 @@ jobs:
     outputs:
       environment: ${{ steps.setEnv.outputs.environment }}
   build-and-test:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: set-ci-environment
     environment: ${{ needs.set-ci-environment.outputs.environment }}
     steps:
@@ -51,7 +51,3 @@ jobs:
           token: ${{ secrets.GIST_AUTH_TOKEN }}
           gist_id: 59e7f69414b444b5d49d612d3861ed8c
           file_path: dotnet/Temperatura.Testes/Application1_code-coverage_current-${{ needs.set-ci-environment.outputs.environment }}.json
-  
-    
-
-      
