@@ -38,15 +38,14 @@ jobs:
         gist-id: 6fba94027676331adec08030de830676
         gist-auth-token: ${{ secrets.GIST_AUTH_TOKEN }} 
 
-    - name: Get Gist
-      id: get
-      uses: andymckay/get-gist-action@master
-      with:
-        gistURL: "https://gist.githubusercontent.com/rishilionel/6fba94027676331adec08030de830676/raw/14ba654bff00cdba75aa11c947d4a8b85828c559/Application1_code-coverage_previous.json" 
-    - name: Show Gist contents
-      id: run
-      run: |
-        cat ${{ steps.get.outputs.file }}
+  - uses: sergeysova/gist-read-action@v1
+    id: example-gist
+    with:
+      gist_id: 59e7f69414b444b5d49d612d3861ed8c
+      file_name: example.txt
+
+  - name: show content
+    run: echo "Hello ${{ steps.example-gist.outputs.content }}"
 
     - name: Print code coverage
       run: echo "Code coverage percentage ${{steps.create_coverage_badge.outputs.percentage}}%"
