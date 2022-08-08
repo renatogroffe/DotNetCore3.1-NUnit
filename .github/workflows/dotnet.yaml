@@ -36,7 +36,7 @@ jobs:
       with:
         token: ${{ secrets.GIST_AUTH_TOKEN }}
         gist_id: 59e7f69414b444b5d49d612d3861ed8c
-        file_path: dotnet/Temperatura.Testes/test.json
+        file_path: test.json
 
 
         # https://api.github.com/gists/c9c1cfbbae7a084bdb99861f0713de66
