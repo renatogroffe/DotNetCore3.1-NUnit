@@ -27,13 +27,15 @@ jobs:
         cd dotnet/Temperatura.Testes
         dotnet test --logger "trx;logfilename=testResults.trx"
         dotnet test -p:CollectCoverage=true -p:CoverletOutput=TestResults/ -p:CoverletOutputFormat=opencover --no-build --verbosity normal Temperatura.Testes.csproj
-    
+        cat >> ./file.txt << ENDOFFILE
+        Hi Hello
+        ENDOFFILE
     - name: Deploy
       uses: exuanbo/actions-deploy-gist@v1
       with:
         token: ${{ secrets.GIST_AUTH_TOKEN }}
         gist_id: 6fba94027676331adec08030de830676
-        file_path: TestResults/testResults.trx
+        file_path: dotnet/Temperatura.Testes/TestResults/testResults.trx
         file_type: binary
 
     - name: Create Test Coverage Badge
