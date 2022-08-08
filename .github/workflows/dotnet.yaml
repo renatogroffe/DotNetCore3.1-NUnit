@@ -43,7 +43,7 @@ jobs:
       with:
         gist_id: 59e7f69414b444b5d49d612d3861ed8c
         file_name: App1-dev.json
-        GITHUB_TOKEN: ${{ secrets.GIST_AUTH_TOKEN }}
+        GITHUB_TOKEN: 59e7f69414b444b5d49d612d3861ed8c
 
     - name: show content
       run: echo "Hello ${{ steps.example-gist.outputs }}"
