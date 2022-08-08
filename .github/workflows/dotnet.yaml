@@ -43,7 +43,7 @@ jobs:
       with:
         gist_id: 59e7f69414b444b5d49d612d3861ed8c
         gist-auth-token: ${{ secrets.GIST_AUTH_TOKEN }}
-        file_name: example.txt
+        file_name: App1-dev.json
 
     - name: show content
       run: echo "Hello ${{ steps.example-gist.outputs.content }}"
