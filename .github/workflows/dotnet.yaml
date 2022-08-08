@@ -34,7 +34,7 @@ jobs:
       uses: exuanbo/actions-deploy-gist@v1
       with:
         token: ${{ secrets.GIST_AUTH_TOKEN }}
-        gist_id: 6fba94027676331adec08030de830676
+        gist_id: c9c1cfbbae7a084bdb99861f0713de66
         file_path: dotnet/Temperatura.Testes/TestResults/testResults.trx
 
     - name: Create Test Coverage Badge
