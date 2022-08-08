@@ -36,7 +36,6 @@ jobs:
         token: ${{ secrets.GIST_AUTH_TOKEN }}
         gist_id: 6fba94027676331adec08030de830676
         file_path: dotnet/Temperatura.Testes/TestResults/testResults.trx
-        file_type: binary
 
     - name: Create Test Coverage Badge
       uses: simon-k/dotnet-code-coverage-badge@v1.0.0
