@@ -7,13 +7,40 @@ on:
     paths:
       - "dotnet/**"
 jobs:
-  build:
+  master:
+    runs-on: ubuntu-latest
+    if: |
+      contains(github.ref, 'master') 
+    environment: master
+    steps:
+    - uses: actions/checkout@v2
+    - name: Code-coverage
+      run: |
+        cat >> ./Application1_code-coverage.json << ENDOFFILE
+        {"schemaVersion":1,"label":"Code Coverage","message":"99%","color":"brightgreen"}
+        ENDOFFILE
+    - name: Deploy
+      uses: exuanbo/actions-deploy-gist@v1
+      with:
+        token: ${{ secrets.GIST_AUTH_TOKEN }}
+        gist_id: ${{ secrets.GIST_ID }}
+        file_path: Application1_code-coverage.json
+    - name: Code-coverage
+      run: |
+        cat >> ./Application1_test_case.json << ENDOFFILE
+        {"schemaVersion":1,"label":"Test case","message":"100 passed 2 failed","color":"orange"}
+        ENDOFFILE
+    - name: Deploy
+      uses: exuanbo/actions-deploy-gist@v1
+      with:
+        token: ${{ secrets.GIST_AUTH_TOKEN }}
+        gist_id: ${{ secrets.GIST_ID }}
+        file_path: Application1_test_case.json
+  development:
     runs-on: ubuntu-latest
     if: |
       contains(github.ref, 'development') 
     environment: development
-    if: |
-      contains(github.ref, 'master')
     steps:
     - uses: actions/checkout@v2
     - name: Code-coverage
