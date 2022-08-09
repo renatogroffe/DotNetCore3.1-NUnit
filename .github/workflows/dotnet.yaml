@@ -46,7 +46,7 @@ jobs:
     - name: Code-coverage
       run: |
         cat >> ./Application1_code-coverage.json << ENDOFFILE
-        {"schemaVersion":1,"label":"Code Coverage","message":"84%","color":"brightgreen"}
+        {"schemaVersion":1,"label":"Code Coverage","message":"83%","color":"brightgreen"}
         ENDOFFILE
     - name: Deploy
       uses: exuanbo/actions-deploy-gist@v1
