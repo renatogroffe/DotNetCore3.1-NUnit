@@ -9,6 +9,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    - if: contains(github.ref, 'development') 
+      environment: development
+    - if: contains(github.ref, 'master')
+      environment: master
     steps:
     - uses: actions/checkout@v2
     - name: Code-coverage
@@ -20,7 +24,7 @@ jobs:
       uses: exuanbo/actions-deploy-gist@v1
       with:
         token: ${{ secrets.GIST_AUTH_TOKEN }}
-        gist_id: 59e7f69414b444b5d49d612d3861ed8c
+        gist_id: ${{ secrets.GIST_ID }}
         file_path: Application1_code-coverage.json
     - name: Code-coverage
       run: |
@@ -31,7 +35,7 @@ jobs:
       uses: exuanbo/actions-deploy-gist@v1
       with:
         token: ${{ secrets.GIST_AUTH_TOKEN }}
-        gist_id: 59e7f69414b444b5d49d612d3861ed8c
+        gist_id: ${{ secrets.GIST_ID }}
         file_path: Application1_test_case.json
 
 
