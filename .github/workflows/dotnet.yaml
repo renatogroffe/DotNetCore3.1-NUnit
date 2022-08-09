@@ -17,7 +17,7 @@ jobs:
     - name: Code-coverage
       run: |
         cat >> ./Application1_code-coverage.json << ENDOFFILE
-        {"schemaVersion":1,"label":"Code Coverage","message":"99%","color":"brightgreen"}
+        {"schemaVersion":1,"label":"Code Coverage","message":"60%","color":"brightgreen"}
         ENDOFFILE
     - name: Deploy
       uses: exuanbo/actions-deploy-gist@v1
@@ -28,7 +28,7 @@ jobs:
     - name: Code-coverage
       run: |
         cat >> ./Application1_test_case.json << ENDOFFILE
-        {"schemaVersion":1,"label":"Test case","message":"100 passed 2 failed","color":"orange"}
+        {"schemaVersion":1,"label":"Test case","message":"30 passed 2 failed","color":"orange"}
         ENDOFFILE
     - name: Deploy
       uses: exuanbo/actions-deploy-gist@v1
@@ -46,7 +46,7 @@ jobs:
     - name: Code-coverage
       run: |
         cat >> ./Application1_code-coverage.json << ENDOFFILE
-        {"schemaVersion":1,"label":"Code Coverage","message":"99%","color":"brightgreen"}
+        {"schemaVersion":1,"label":"Code Coverage","message":"70%","color":"brightgreen"}
         ENDOFFILE
     - name: Deploy
       uses: exuanbo/actions-deploy-gist@v1
@@ -57,7 +57,7 @@ jobs:
     - name: Code-coverage
       run: |
         cat >> ./Application1_test_case.json << ENDOFFILE
-        {"schemaVersion":1,"label":"Test case","message":"100 passed 2 failed","color":"orange"}
+        {"schemaVersion":1,"label":"Test case","message":"35 passed 2 failed","color":"orange"}
         ENDOFFILE
     - name: Deploy
       uses: exuanbo/actions-deploy-gist@v1
