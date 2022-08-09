@@ -1,5 +1,5 @@
 # DotNetCore3.1-NUnit
-|  | Master |
+|                          | Master |
 |-----------------|-------------------------------|
 
 | Name | Code_Coverage | Test_Coverage |
