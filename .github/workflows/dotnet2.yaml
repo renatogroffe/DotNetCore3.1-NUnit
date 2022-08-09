@@ -1,11 +1,11 @@
-name: Dotnet1
+name: Dotnet2
 on:
   push:
     branches:
       - master
       - development
     paths:
-      - "**/dotnet/**"
+      - "**/dotnet2/**"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -13,7 +13,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Code-coverage
       run: |
-        cat >> ./Application1_code-coverage.json << ENDOFFILE
+        cat >> ./Application2_code-coverage.json << ENDOFFILE
         {"schemaVersion":1,"label":"Code Coverage","message":"99%","color":"brightgreen"}
         ENDOFFILE
     - name: Deploy
@@ -21,10 +21,10 @@ jobs:
       with:
         token: ${{ secrets.GIST_AUTH_TOKEN }}
         gist_id: 59e7f69414b444b5d49d612d3861ed8c
-        file_path: Application1_code-coverage.json
+        file_path: Application2_code-coverage.json
     - name: Code-coverage
       run: |
-        cat >> ./Application1_test_case.json << ENDOFFILE
+        cat >> ./Application2_test_case.json << ENDOFFILE
         {"schemaVersion":1,"label":"Code Coverage","message":"100 passed 2 failed","color":"brightgreen"}
         ENDOFFILE
     - name: Deploy
@@ -32,7 +32,7 @@ jobs:
       with:
         token: ${{ secrets.GIST_AUTH_TOKEN }}
         gist_id: 59e7f69414b444b5d49d612d3861ed8c
-        file_path: Application1_test_case.json
+        file_path: Application2_test_case.json
 
 
 
