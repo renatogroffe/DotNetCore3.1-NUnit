@@ -5,7 +5,7 @@ on:
       - master
       - development
     paths:
-      - "dotnet/**"
+      - "dotnet2/**"
 jobs:
   master:
     runs-on: ubuntu-latest
