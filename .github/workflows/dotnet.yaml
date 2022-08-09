@@ -86,4 +86,4 @@
 #     #     cat file.ps1
 #     #     pwsh ./file.ps1
 #     #     export test=test
-#     #     printenv
+#     #     printenv |-----------------|---------------|---------------|
