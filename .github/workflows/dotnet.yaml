@@ -5,14 +5,15 @@ on:
       - master
       - development
     paths:
-      - "**/dotnet/**"
+      - "dotnet/**"
 jobs:
   build:
     runs-on: ubuntu-latest
-    - if: contains(github.ref, 'development') 
-      environment: development
-    - if: contains(github.ref, 'master')
-      environment: master
+    if: |
+      contains(github.ref, 'development') 
+    environment: development
+    if: |
+      contains(github.ref, 'master')
     steps:
     - uses: actions/checkout@v2
     - name: Code-coverage
