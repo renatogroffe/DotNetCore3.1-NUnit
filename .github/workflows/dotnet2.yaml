@@ -46,7 +46,7 @@ jobs:
     - name: Code-coverage
       run: |
         cat >> ./Application2_code-coverage.json << ENDOFFILE
-        {"schemaVersion":1,"label":"Code Coverage","message":"99%","color":"brightgreen"}
+        {"schemaVersion":1,"label":"Code Coverage","message":"91%","color":"brightgreen"}
         ENDOFFILE
     - name: Deploy
       uses: exuanbo/actions-deploy-gist@v1
@@ -57,7 +57,7 @@ jobs:
     - name: Code-coverage
       run: |
         cat >> ./Application2_test_case.json << ENDOFFILE
-        {"schemaVersion":1,"label":"Test case","message":"59 passed 0 failed","color":"orange"}
+        {"schemaVersion":1,"label":"Test case","message":"72 passed 0 failed","color":"orange"}
         ENDOFFILE
     - name: Deploy
       uses: exuanbo/actions-deploy-gist@v1
