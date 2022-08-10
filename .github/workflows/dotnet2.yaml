@@ -14,18 +14,33 @@ jobs:
     environment: master
     steps:
     - uses: actions/checkout@v2
-    - name: Code-coverage
-      run: |
-        cat >> ./Application2_code-coverage.json << ENDOFFILE
-        {"schemaVersion":1,"label":"Code Coverage","message":"95%","color":"brightgreen"}
-        ENDOFFILE
-    - name: Deploy
-      uses: exuanbo/actions-deploy-gist@v1
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
       with:
-        token: ${{ secrets.GIST_AUTH_TOKEN }}
-        gist_id: ${{ secrets.GIST_ID }}
-        file_path: Application2_code-coverage.json
-    - name: Code-coverage
+        dotnet-version: 3.1.301
+    - name: Restore dependencies
+      run: |
+        cd dotnet/Temperatura.Testes
+        dotnet restore 
+    - name: Build
+      run: |
+        cd dotnet/Temperatura.Testes
+        dotnet build --no-restore   
+        dotnet test --logger "trx;logfilename=testResults.trx"
+        dotnet test -p:CollectCoverage=true -p:CoverletOutput=TestResults/ -p:CoverletOutputFormat=opencover --no-build --verbosity normal Temperatura.Testes.csproj
+        
+    - name: Create Test Coverage Badge
+      uses: simon-k/dotnet-code-coverage-badge@v1.0.0
+      id: create_coverage_badge
+      with:
+        label: Unit Test Coverage
+        color: brightgreen
+        path: dotnet/Temperatura.Testes/TestResults/coverage.opencover.xml
+        gist-filename: Application2_code-coverage.json
+        gist-id: ${{ secrets.GIST_ID }}
+        gist-auth-token: ${{ secrets.GIST_AUTH_TOKEN }}
+
+    - name: Test-coverage
       run: |
         cat >> ./Application2_test_case.json << ENDOFFILE
         {"schemaVersion":1,"label":"Test case","message":"47 passed 3 failed","color":"orange"}
@@ -43,18 +58,32 @@ jobs:
     environment: development
     steps:
     - uses: actions/checkout@v2
-    - name: Code-coverage
-      run: |
-        cat >> ./Application2_code-coverage.json << ENDOFFILE
-        {"schemaVersion":1,"label":"Code Coverage","message":"91%","color":"brightgreen"}
-        ENDOFFILE
-    - name: Deploy
-      uses: exuanbo/actions-deploy-gist@v1
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
       with:
-        token: ${{ secrets.GIST_AUTH_TOKEN }}
-        gist_id: ${{ secrets.GIST_ID }}
-        file_path: Application2_code-coverage.json
-    - name: Code-coverage
+        dotnet-version: 3.1.301
+    - name: Restore dependencies
+      run: |
+        cd dotnet/Temperatura.Testes
+        dotnet restore 
+    - name: Build
+      run: |
+        cd dotnet/Temperatura.Testes
+        dotnet build --no-restore   
+        dotnet test --logger "trx;logfilename=testResults.trx"
+        dotnet test -p:CollectCoverage=true -p:CoverletOutput=TestResults/ -p:CoverletOutputFormat=opencover --no-build --verbosity normal Temperatura.Testes.csproj
+        
+    - name: Create Test Coverage Badge
+      uses: simon-k/dotnet-code-coverage-badge@v1.0.0
+      id: create_coverage_badge
+      with:
+        label: Unit Test Coverage
+        color: brightgreen
+        path: dotnet/Temperatura.Testes/TestResults/coverage.opencover.xml
+        gist-filename: Application2_code-coverage.json
+        gist-id: ${{ secrets.GIST_ID }}
+        gist-auth-token: ${{ secrets.GIST_AUTH_TOKEN }}
+    - name: Test-coverage
       run: |
         cat >> ./Application2_test_case.json << ENDOFFILE
         {"schemaVersion":1,"label":"Test case","message":"72 passed 0 failed","color":"orange"}
