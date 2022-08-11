@@ -14,18 +14,6 @@ jobs:
     environment: master
     steps:
     - uses: actions/checkout@v2
-    # - name: Code-coverage
-    #   run: |
-    #     cat >> ./Application1_code-coverage.json << ENDOFFILE
-    #     {"schemaVersion":1,"label":"Code Coverage","message":"60%","color":"brightgreen"}
-    #     ENDOFFILE
-    # - name: Deploy
-    #   uses: exuanbo/actions-deploy-gist@v1
-    #   with:
-    #     token: ${{ secrets.GIST_AUTH_TOKEN }}
-    #     gist_id: ${{ secrets.GIST_ID }}
-    #     file_path: Application1_code-coverage.json
-
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
@@ -52,17 +40,32 @@ jobs:
         gist-id: ${{ secrets.GIST_ID }}
         gist-auth-token: ${{ secrets.GIST_AUTH_TOKEN }}
 
-    - name: Test-Case-coverage
+    - name: Find Information about Test Cases
       run: |
-        cat >> ./Application1_test_case.json << ENDOFFILE
-        {"schemaVersion":1,"label":"Test case","message":"30 passed 2 failed","color":"orange"}
+        cd dotnet/Temperatura.Testes
+        cat >> ./testcase.ps1 << ENDOFFILE
+        foreach(\$line in Get-Content TestResults\testResults.trx) 
+        {
+          if(\$line -match '<Counters total="(?<total>.+)" executed="(?<executed>.+)" passed="(?<passed>.+)" failed="(?<failed>.+)" error="(?<error>.+)" ' )
+          {
+                  \$total=\$(\$Matches.total)
+                  \$passed=\$(\$Matches.passed)
+                  \$failed=\$(\$Matches.failed)
+                  \$test_case = '{"schemaVersion":1,"label":"Test case","message":"' + \$passed + 'passed ' + \$failed + 'failed","color":"orange"}'
+                  New-Item Application1_test_case.json
+                  Set-Content Application1_test_case.json \$test_case
+          }
+        }
         ENDOFFILE
+        pwsh ./testcase.ps1
     - name: Deploy
       uses: exuanbo/actions-deploy-gist@v1
       with:
         token: ${{ secrets.GIST_AUTH_TOKEN }}
         gist_id: ${{ secrets.GIST_ID }}
-        file_path: Application1_test_case.json
+        file_path: dotnet/Temperatura.Testes/Application1_test_case.json
+
+
   development:
     runs-on: ubuntu-latest
     if: |
