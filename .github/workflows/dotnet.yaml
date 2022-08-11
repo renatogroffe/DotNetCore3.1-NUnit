@@ -113,13 +113,12 @@ jobs:
         }
         ENDOFFILE
         pwsh ./testcase.ps1
-        ls
     - name: Deploy
       uses: exuanbo/actions-deploy-gist@v1
       with:
         token: ${{ secrets.GIST_AUTH_TOKEN }}
         gist_id: ${{ secrets.GIST_ID }}
-        file_path: cd dotnet/Temperatura.Testes/testcase.json
+        file_path: dotnet/Temperatura.Testes/testcase.json
     
 
 
