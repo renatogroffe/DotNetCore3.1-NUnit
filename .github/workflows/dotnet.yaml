@@ -95,19 +95,9 @@ jobs:
         gist-filename: Application1_code-coverage.json
         gist-id: ${{ secrets.GIST_ID }}
         gist-auth-token: ${{ secrets.GIST_AUTH_TOKEN }}
-    - name: Test-coverage
-      run: |
-        cat >> ./Application1_test_case.json << ENDOFFILE
-        {"schemaVersion":1,"label":"Test case","message":"87 passed 7 failed","color":"orange"}
-        ENDOFFILE
-    - name: Deploy
-      uses: exuanbo/actions-deploy-gist@v1
-      with:
-        token: ${{ secrets.GIST_AUTH_TOKEN }}
-        gist_id: ${{ secrets.GIST_ID }}
-        file_path: Application1_test_case.json
     - name: Find Information about Test Cases
       run: |
+        cd dotnet/Temperatura.Testes
         cat >> ./testcase.ps1 << ENDOFFILE
         foreach(\$line in Get-Content dotnet\Temperatura.Testes\TestResults\testResults.trx) 
         {
@@ -123,8 +113,13 @@ jobs:
         }
         ENDOFFILE
         pwsh ./testcase.ps1
-        ls -l
-
+    - name: Deploy
+      uses: exuanbo/actions-deploy-gist@v1
+      with:
+        token: ${{ secrets.GIST_AUTH_TOKEN }}
+        gist_id: ${{ secrets.GIST_ID }}
+        file_path: cd dotnet/Temperatura.Testes/testcase.json
+    
 
 
 

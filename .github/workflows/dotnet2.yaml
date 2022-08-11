@@ -20,11 +20,11 @@ jobs:
         dotnet-version: 3.1.301
     - name: Restore dependencies
       run: |
-        cd dotnet/Temperatura.Testes
+        cd dotnet2/Temperatura.Testes
         dotnet restore 
     - name: Build
       run: |
-        cd dotnet/Temperatura.Testes
+        cd dotnet2/Temperatura.Testes
         dotnet build --no-restore   
         dotnet test --logger "trx;logfilename=testResults.trx"
         dotnet test -p:CollectCoverage=true -p:CoverletOutput=TestResults/ -p:CoverletOutputFormat=opencover --no-build --verbosity normal Temperatura.Testes.csproj
@@ -35,7 +35,7 @@ jobs:
       with:
         label: Unit Test Coverage
         color: brightgreen
-        path: dotnet/Temperatura.Testes/TestResults/coverage.opencover.xml
+        path: dotnet2/Temperatura.Testes/TestResults/coverage.opencover.xml
         gist-filename: Application2_code-coverage.json
         gist-id: ${{ secrets.GIST_ID }}
         gist-auth-token: ${{ secrets.GIST_AUTH_TOKEN }}
@@ -64,11 +64,11 @@ jobs:
         dotnet-version: 3.1.301
     - name: Restore dependencies
       run: |
-        cd dotnet/Temperatura.Testes
+        cd dotnet2/Temperatura.Testes
         dotnet restore 
     - name: Build
       run: |
-        cd dotnet/Temperatura.Testes
+        cd dotnet2/Temperatura.Testes
         dotnet build --no-restore   
         dotnet test --logger "trx;logfilename=testResults.trx"
         dotnet test -p:CollectCoverage=true -p:CoverletOutput=TestResults/ -p:CoverletOutputFormat=opencover --no-build --verbosity normal Temperatura.Testes.csproj
@@ -79,21 +79,34 @@ jobs:
       with:
         label: Unit Test Coverage
         color: brightgreen
-        path: dotnet/Temperatura.Testes/TestResults/coverage.opencover.xml
+        path: dotnet2/Temperatura.Testes/TestResults/coverage.opencover.xml
         gist-filename: Application2_code-coverage.json
         gist-id: ${{ secrets.GIST_ID }}
         gist-auth-token: ${{ secrets.GIST_AUTH_TOKEN }}
-    - name: Test-coverage
+    - name: Find Information about Test Cases
       run: |
-        cat >> ./Application2_test_case.json << ENDOFFILE
-        {"schemaVersion":1,"label":"Test case","message":"72 passed 0 failed","color":"orange"}
+        cd dotnet2/Temperatura.Testes
+        cat >> ./testcase.ps1 << ENDOFFILE
+        foreach(\$line in Get-Content dotnet2\Temperatura.Testes\TestResults\testResults.trx) 
+        {
+          if(\$line -match '<Counters total="(?<total>.+)" executed="(?<executed>.+)" passed="(?<passed>.+)" failed="(?<failed>.+)" error="(?<error>.+)" ' )
+          {
+                  \$total=\$(\$Matches.total)
+                  \$passed=\$(\$Matches.passed)
+                  \$failed=\$(\$Matches.failed)
+                  \$test_case = '{"schemaVersion":1,"label":"Test case","message":"' + \$passed + 'passed ' + \$failed + 'failed","color":"orange"}'
+                  New-Item testcase.json
+                  Set-Content testcase.json \$test_case
+          }
+        }
         ENDOFFILE
+        pwsh ./testcase.ps1
     - name: Deploy
       uses: exuanbo/actions-deploy-gist@v1
       with:
         token: ${{ secrets.GIST_AUTH_TOKEN }}
         gist_id: ${{ secrets.GIST_ID }}
-        file_path: Application2_test_case.json
+        file_path: cd dotnet2/Temperatura.Testes/testcase.json
 
 
 
