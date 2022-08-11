@@ -99,7 +99,7 @@ jobs:
       run: |
         cd dotnet/Temperatura.Testes
         cat >> ./testcase.ps1 << ENDOFFILE
-        foreach(\$line in Get-Content dotnet\Temperatura.Testes\TestResults\testResults.trx) 
+        foreach(\$line in Get-Content TestResults\testResults.trx) 
         {
           if(\$line -match '<Counters total="(?<total>.+)" executed="(?<executed>.+)" passed="(?<passed>.+)" failed="(?<failed>.+)" error="(?<error>.+)" ' )
           {
