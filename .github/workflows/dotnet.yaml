@@ -106,30 +106,48 @@ jobs:
         token: ${{ secrets.GIST_AUTH_TOKEN }}
         gist_id: ${{ secrets.GIST_ID }}
         file_path: Application1_test_case.json
-
-
-
-
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 3.1.301
-    - name: Restore dependencies
+    - name: Find Information about Test Cases
       run: |
-        cd dotnet/Temperatura.Testes
-        dotnet restore 
-    - name: Build
-      run: |
-        cd dotnet/Temperatura.Testes
-        dotnet build --no-restore
-    - name: Test
-      run: |
-        cat >> ./test.json << ENDOFFILE
-        {"schemaVersion":1,"label":"Code Coverage","message":"99%","color":"brightgreen"}
+        cat >> ./testcase.ps1 << ENDOFFILE
+        foreach(\$line in Get-Content dotnet\Temperatura.Testes\TestResults\testResults.trx) 
+        {
+          if(\$line -match '<Counters total="(?<total>.+)" executed="(?<executed>.+)" passed="(?<passed>.+)" failed="(?<failed>.+)" error="(?<error>.+)" ' )
+          {
+                  \$total=\$(\$Matches.total)
+                  \$passed=\$(\$Matches.passed)
+                  \$failed=\$(\$Matches.failed)
+                  \$test_case = '{"schemaVersion":1,"label":"Test case","message":"' + \$passed + 'passed ' + \$failed + 'failed","color":"orange"}'
+                  New-Item testcase.json
+                  Set-Content testcase.json \$test_case
+          }
+        }
         ENDOFFILE
-        cd dotnet/Temperatura.Testes
-        dotnet test --logger "trx;logfilename=testResults.trx"
-        dotnet test -p:CollectCoverage=true -p:CoverletOutput=TestResults/ -p:CoverletOutputFormat=opencover --no-build --verbosity normal Temperatura.Testes.csproj
+        pwsh ./testcase.ps1
+        ls -l
+
+
+
+
+    # - name: Setup .NET
+    #   uses: actions/setup-dotnet@v1
+    #   with:
+    #     dotnet-version: 3.1.301
+    # - name: Restore dependencies
+    #   run: |
+    #     cd dotnet/Temperatura.Testes
+    #     dotnet restore 
+    # - name: Build
+    #   run: |
+    #     cd dotnet/Temperatura.Testes
+    #     dotnet build --no-restore
+    # - name: Test
+    #   run: |
+    #     cat >> ./test.json << ENDOFFILE
+    #     {"schemaVersion":1,"label":"Code Coverage","message":"99%","color":"brightgreen"}
+    #     ENDOFFILE
+    #     cd dotnet/Temperatura.Testes
+    #     dotnet test --logger "trx;logfilename=testResults.trx"
+    #     dotnet test -p:CollectCoverage=true -p:CoverletOutput=TestResults/ -p:CoverletOutputFormat=opencover --no-build --verbosity normal Temperatura.Testes.csproj
     
 #     - name: Deploy
 #       uses: exuanbo/actions-deploy-gist@v1
@@ -166,24 +184,6 @@ jobs:
 # #     #   run: echo "Code coverage percentage ${{steps.create_coverage_badge.outputs.percentage}}%"
 # #     # - name: Print badge data
 # #     #   run: echo "Badge data ${{steps.test_step.outputs.badge}}"     
-# #     # - name: Find Information about Test Cases
-# #     #   run: |
-# #     #     cat >> ./file.ps1 << ENDOFFILE
-# #     #     foreach(\$line in Get-Content dotnet\Temperatura.Testes\TestResults\testResults.trx) 
-# #     #     {
-# #     #       if(\$line -match '<Counters total="(?<total>.+)" executed="(?<executed>.+)" passed="(?<passed>.+)" failed="(?<failed>.+)" error="(?<error>.+)" ' )
-# #     #       {
-# #     #               \$total=\$(\$Matches.total)
-# #     #               \$passed=\$(\$Matches.passed)
-# #     #               \$failed=\$(\$Matches.failed)
-# #     #               [Environment]::SetEnvironmentVariable('current_total',\$total,"Machine")
-# #     #               \$env:current_passed = \$total
-# #     #               \$env:current_failed = \$total
-# #     #               dir env:
-# #     #       }
-# #     #     }
-# #     #     ENDOFFILE
-# #     #     cat file.ps1
-# #     #     pwsh ./file.ps1
+    
 # #     #     export test=test
 # #     #     printenv |-----------------|---------------|---------------|
