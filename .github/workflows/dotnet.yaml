@@ -51,7 +51,7 @@ jobs:
                   \$total=\$(\$Matches.total)
                   \$passed=\$(\$Matches.passed)
                   \$failed=\$(\$Matches.failed)
-                  \$test_case = '{"schemaVersion":1,"label":"Test case","message":"' + \$passed + 'passed ' + \$failed + 'failed","color":"orange"}'
+                  \$test_case = '{"schemaVersion":1,"label":"Test case","message":"' + \$passed + ' passed ' + \$failed + ' failed","color":"orange"}'
                   New-Item Application1_test_case.json
                   Set-Content Application1_test_case.json \$test_case
           }
@@ -109,7 +109,7 @@ jobs:
                   \$total=\$(\$Matches.total)
                   \$passed=\$(\$Matches.passed)
                   \$failed=\$(\$Matches.failed)
-                  \$test_case = '{"schemaVersion":1,"label":"Test case","message":"' + \$passed + 'passed ' + \$failed + 'failed","color":"orange"}'
+                  \$test_case = '{"schemaVersion":1,"label":"Test case","message":"' + \$passed + ' passed ' + \$failed + ' failed","color":"orange"}'
                   New-Item Application1_test_case.json
                   Set-Content Application1_test_case.json \$test_case
           }
