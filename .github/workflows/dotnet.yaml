@@ -113,6 +113,7 @@ jobs:
         }
         ENDOFFILE
         pwsh ./testcase.ps1
+        ls
     - name: Deploy
       uses: exuanbo/actions-deploy-gist@v1
       with:
