@@ -95,8 +95,8 @@ jobs:
                   \$passed=\$(\$Matches.passed)
                   \$failed=\$(\$Matches.failed)
                   \$test_case = '{"schemaVersion":1,"label":"Test case","message":"' + \$passed + 'passed ' + \$failed + 'failed","color":"orange"}'
-                  New-Item testcase.json
-                  Set-Content testcase.json \$test_case
+                  New-Item Application2_test_case.json
+                  Set-Content Application2_test_case.json \$test_case
           }
         }
         ENDOFFILE
@@ -106,7 +106,7 @@ jobs:
       with:
         token: ${{ secrets.GIST_AUTH_TOKEN }}
         gist_id: ${{ secrets.GIST_ID }}
-        file_path: dotnet2/Temperatura.Testes/testcase.json
+        file_path: dotnet2/Temperatura.Testes/Application2_test_case.json
 
 
 
